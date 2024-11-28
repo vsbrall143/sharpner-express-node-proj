@@ -1,12 +1,11 @@
 const path =require("path");
 const express =require('express');
 
+const productsController=require("../controllers/products") // .. is used to go up one dir and then go to contorller folder and import product controller which provides functionality to send respose to the get request
+
 const router= express.Router();
 
-router.get("/", (req,res,next) => {
- 
-    res.sendFile(path.join(__dirname,"../","views","shop.html"));
-});
+router.get("/", productsController.getProducts);     //passing reference to the function
 
 
 module.exports=router;
