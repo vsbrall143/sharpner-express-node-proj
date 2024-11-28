@@ -1,17 +1,30 @@
-const products=[];
+ const fs=require("fs");
+ const path=require("path");
 
-module.exports=class Product {
-    constructor(t){
-        this.title=t;
-
-    }
-
-    save(){
-        products.push(this);
-    }
-
-    static fetchAll(){
-
-        return products;
-    }
+const getProductsFormFile = () =>  {
+    const p=path.join(path.dirname(process.mainModule.filename),"data","products.json");      //p is to import for the product file where data is stored
+    fs.readFile(p,(err,fileContent) => {
+        if(err){ //if file is tere and there is no error then product array is fethed form the file read
+            return [];
+        }
+        return JSON.parse(fileContent);
+    });
 }
+
+module.exports = class Product {
+  constructor(t) {
+    this.title = t;
+  }
+
+  save() {
+    products = getProductsFormFile();
+    products.push(this); // this reffers to the class to the new product that is pushed in
+    fs.writeFile(p, JSON.stringify(products), (err) => {
+      console.log(err);
+    });
+  }
+
+  static fetchAll() {
+    getProductsFormFile();
+  }
+};
