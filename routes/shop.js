@@ -1,11 +1,21 @@
-const path =require("path");
-const express =require('express');
+const path = require('path');
 
-const productsController=require("../controllers/products") // .. is used to go up one dir and then go to contorller folder and import product controller which provides functionality to send respose to the get request
+const express = require('express');
 
-const router= express.Router();
+const shopController = require('../controllers/shop');
 
-router.get("/", productsController.getProducts);     //passing reference to the function
+const router = express.Router();
 
+router.get('/', shopController.getIndex);
 
-module.exports=router;
+router.get('/products', shopController.getProducts);
+
+router.get('/products/:productId', shopController.getProduct);     //id is added dynamically therefore : is used
+
+router.get('/cart', shopController.getCart);
+
+router.get('/orders', shopController.getOrders);
+
+router.get('/checkout', shopController.getCheckout);
+
+module.exports = router;

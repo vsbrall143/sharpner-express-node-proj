@@ -1,14 +1,18 @@
-const path =require("path");             //path module core node js module
-const express =require('express');
+const path = require('path');
 
-const productsController=require("../controllers/products") // .. is used to go up one dir and then go to contorller folder and import product controller which provides functionality to send respose to the get request
+const express = require('express');
 
-const router= express.Router();
+const adminController = require('../controllers/admin');
 
-// path is /admin/add-product => GET  but admin is added as filter in app.js file 
-router.get("/add-product",productsController.getAddProduct);
+const router = express.Router();
 
-// path is /admin/add-product => POST  but admin is added as filter in app.js file
-router.post("/add-product",productsController.postAddProduct);
+// /admin/add-product => GET
+router.get('/add-product', adminController.getAddProduct);
 
-module.exports=router;
+// /admin/products => GET
+router.get('/products', adminController.getProducts);
+
+// /admin/add-product => POST
+router.post('/add-product', adminController.postAddProduct);
+
+module.exports = router;
